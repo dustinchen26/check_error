@@ -1,11 +1,21 @@
 #!/bin/bash
 
-# Description: This script checks all log files starting with "du_" in the current directory for the string "TTI_IND_TIMER_EXPIRED".
+# Description: This script checks all log files starting with "du_" in a specified or current directory for the string "TTI_IND_TIMER_EXPIRED".
+
+# Specify the default directory here (leave empty to use the current directory).
+default_directory=""
+
+directory="${default_directory:-$(pwd)}" # Use specified directory or fallback to current directory
+
+if [[ ! -d "$directory" ]]; then
+    echo "Error: Directory '$directory' does not exist."
+    exit 1
+fi
 
 start_time=$(date +%s)
 
-# Loop through all files matching the pattern "du_*.log"
-for file in du_*.log; do
+# Loop through all files matching the pattern "du_*.log" in the specified directory
+for file in "$directory"/du_*.log; do
     # Ensure the file exists before proceeding
     if [[ -f "$file" ]]; then
         echo "Processing file: $file"
