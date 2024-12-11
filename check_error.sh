@@ -2,6 +2,8 @@
 
 # Description: This script checks all log files starting with "du_" in the current directory for the string "TTI_IND_TIMER_EXPIRED".
 
+start_time=$(date +%s)
+
 # Loop through all files matching the pattern "du_*.log"
 for file in du_*.log; do
     # Ensure the file exists before proceeding
@@ -25,3 +27,8 @@ for file in du_*.log; do
         echo "File not found: $file"
     fi
 done
+
+end_time=$(date +%s)
+execution_time=$((end_time - start_time))
+
+echo "Execution completed in $execution_time seconds."
